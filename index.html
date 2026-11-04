@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>다 그렸어요! - 아동 그림 심리분석 & 아틀리에</title>
+    <meta name="description" content="아이의 그림 그리기와 실시간 HTP 아동 미술 심리 분석, 그림 일기장, 작품 갤러리 및 부모님 결과 발송 서비스" />
+    <link rel="icon" type="image/png" href="/assets/aistudio/Gemini_Generated_Image_85knyf85knyf85kn_a1b3fbaf.png" />
+    <meta property="og:title" content="다 그렸어요! - 아동 그림 심리분석 & 아틀리에" />
+    <meta property="og:description" content="아이의 그림 그리기와 실시간 HTP 아동 미술 심리 분석, 그림 일기장, 작품 갤러리 및 부모님 결과 발송 서비스" />
+    <meta property="og:image" content="/assets/aistudio/Gemini_Generated_Image_85knyf85knyf85kn_a1b3fbaf.png" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- 둥글둥글하고 귀여운 한국어 폰트: Gaegu, Jua, Gamja Flower, Dongle -->
+    <link href="https://fonts.googleapis.com/css2?family=Dongle:wght@400;700&family=Gaegu:wght@400;700&family=Gamja+Flower&family=Jua&display=swap" rel="stylesheet">
+    <script>
+      // Suppress unhandled WebSocket/HMR or GSI origin notices
+      window.addEventListener('unhandledrejection', function(event) {
+        if (event.reason && (
+          (typeof event.reason.message === 'string' && (
+            event.reason.message.includes('WebSocket') ||
+            event.reason.message.includes('vite') ||
+            event.reason.message.includes('HMR') ||
+            event.reason.message.includes('origin is not allowed') ||
+            event.reason.message.includes('GSI_LOGGER')
+          ))
+        )) {
+          event.preventDefault();
+        }
+      });
+
+      // Filter GSI origin notice from console.error in preview environments
+      (function() {
+        var origConsoleError = console.error;
+        console.error = function() {
+          for (var i = 0; i < arguments.length; i++) {
+            if (typeof arguments[i] === 'string' && (
+              arguments[i].includes('[GSI_LOGGER]') ||
+              arguments[i].includes('The given origin is not allowed') ||
+              arguments[i].includes('origin is not allowed for the given client ID')
+            )) {
+              console.info('[GSI Notice]: Origin configuration notice:', arguments[i]);
+              return;
+            }
+          }
+          origConsoleError.apply(console, arguments);
+        };
+      })();
+    </script>
+    <!-- Kakao JavaScript SDK -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.4/kakao.min.js"></script>
+  </head>
+  <body>
+
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
