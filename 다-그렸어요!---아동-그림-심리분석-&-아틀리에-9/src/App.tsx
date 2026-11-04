@@ -9,7 +9,6 @@ import {
   Download, 
   BookOpen, 
   Image as ImageIcon,
-  Check,
   CheckCircle2,
   AlertTriangle,
   Lock,
@@ -62,9 +61,6 @@ export default function App() {
 
   // 내가 그린 프로필 그림은 "로그인한 계정" 것만 보여줍니다 (로그아웃 상태에서는 항상 기본 캐릭터)
   const [customProfileImage, setCustomProfileImage] = useState<string>('');
-
-  // HTP 분석 대상 선택 (실제 그린 대상만 해석: 기본값은 사람)
-  const [analysisSubjects, setAnalysisSubjects] = useState<('person' | 'tree' | 'house')[]>(['person']);
 
   const [artworks, setArtworks] = useState<Artwork[]>([]);
   const [diaries, setDiaries] = useState<DiaryEntry[]>([]);
@@ -740,7 +736,6 @@ export default function App() {
       const htmlResult = await analyzeChildDrawing({
         imageData: dataUrl,
         realtimeRules: insights,
-        drawnSubjects: analysisSubjects,
       });
 
       setCurrentAnalysisHtml(htmlResult);
@@ -1001,45 +996,10 @@ export default function App() {
               >
                 {isFullscreen ? (
                   <>
-                    <div className="flex items-center gap-2 flex-wrap">
+                    <div className="flex items-center gap-2">
                       <span className="title-font text-lg md:text-xl text-blue-600">
                         {currentMode === 'analysis' ? '마음을 담아 그려봐요 ✨' : '자유 스케치북 🎨'}
                       </span>
-                      {currentMode === 'analysis' && (
-                        <div className="flex items-center gap-1 bg-purple-50 px-2 py-0.5 rounded-full border border-purple-200">
-                          <span className="text-[11px] font-bold text-purple-700 hidden sm:inline">그린 대상:</span>
-                          {[
-                            { id: 'person', label: '👧 사람' },
-                            { id: 'tree', label: '🌳 나무' },
-                            { id: 'house', label: '🏠 집' },
-                          ].map((sub) => {
-                            const isSelected = analysisSubjects.includes(sub.id as any);
-                            return (
-                              <button
-                                key={sub.id}
-                                type="button"
-                                onClick={() => {
-                                  setAnalysisSubjects((prev) => {
-                                    if (prev.includes(sub.id as any)) {
-                                      if (prev.length === 1) return prev;
-                                      return prev.filter((s) => s !== sub.id);
-                                    } else {
-                                      return [...prev, sub.id as any];
-                                    }
-                                  });
-                                }}
-                                className={`px-2 py-0.5 rounded-full text-[11px] font-bold border transition-all cursor-pointer ${
-                                  isSelected
-                                    ? 'bg-purple-600 text-white border-purple-600 shadow-xs'
-                                    : 'bg-white text-gray-500 border-gray-200 hover:border-purple-300'
-                                }`}
-                              >
-                                {sub.label}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      )}
                     </div>
                     <div className="flex items-center gap-2">
                       <button
@@ -1076,44 +1036,9 @@ export default function App() {
                       {currentMode === 'analysis' ? '마음을 담아 그려봐요 ✨' : '마음껏 자유롭게 그려봐! 🎨'}
                     </h2>
                     {currentMode === 'analysis' && (
-                      <div className="flex flex-col items-center gap-2 mt-2">
-                        <div className="inline-flex items-center gap-1.5 bg-purple-100 text-purple-700 px-3.5 py-1 rounded-full text-xs md:text-sm font-bold border border-purple-200">
-                          <span>오늘 도화지에 무엇을 그렸나요? (실제 그린 대상만 분석해 드려요) 🎨</span>
-                        </div>
-                        <div className="flex items-center justify-center gap-2 flex-wrap">
-                          {[
-                            { id: 'person', label: '👧 사람', color: 'border-pink-500 bg-pink-500 text-white' },
-                            { id: 'tree', label: '🌳 나무', color: 'border-emerald-500 bg-emerald-500 text-white' },
-                            { id: 'house', label: '🏠 집', color: 'border-amber-500 bg-amber-500 text-white' },
-                          ].map((sub) => {
-                            const isSelected = analysisSubjects.includes(sub.id as any);
-                            return (
-                              <button
-                                key={sub.id}
-                                type="button"
-                                onClick={() => {
-                                  setAnalysisSubjects((prev) => {
-                                    if (prev.includes(sub.id as any)) {
-                                      if (prev.length === 1) return prev;
-                                      return prev.filter((s) => s !== sub.id);
-                                    } else {
-                                      return [...prev, sub.id as any];
-                                    }
-                                  });
-                                }}
-                                className={`px-4 py-1.5 rounded-full text-xs md:text-sm font-extrabold border-2 transition-all cursor-pointer flex items-center gap-1.5 ${
-                                  isSelected
-                                    ? `${sub.color} shadow-md scale-105 ring-2 ring-purple-300`
-                                    : 'border-gray-200 bg-white text-gray-500 hover:border-purple-300 hover:text-purple-600'
-                                }`}
-                              >
-                                <span>{sub.label}</span>
-                                {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
+                      <p className="text-purple-700 font-bold text-sm md:text-base mt-1.5 bg-purple-100/90 inline-block px-5 py-1.5 rounded-full border-2 border-purple-300 shadow-sm animate-pulse">
+                        &lt;집, 나무, 사람을 그려주세요 🏠 🌳 👧&gt;
+                      </p>
                     )}
                   </>
                 )}
